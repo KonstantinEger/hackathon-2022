@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "name": "Konstantin",
+      "phone": "+4916666666666",
+      "groups": [
+        "meuschen",
+        "igel"
+      ]
+    },
+    {
+      "name": "Denys",
+      "phone": "+4915258747524",
+      "groups": [
+        "igel"
+      ]
+    }
+  ]
+}
