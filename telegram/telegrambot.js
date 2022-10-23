@@ -1,35 +1,26 @@
 import TelegramBot from 'node-telegram-bot-api'
 
 export default defineComponent({
-    async run({ steps, $ }) {
-      const telegramToken = `${process.env.telegramToken}`
-      const maeuschenChatId = `${process.env.maeuschenChat}`
-      const igelChatId = `${process.env.igelChat}`
+	async run({ steps, $ }) {
+		const telegramToken = `${process.env.telegramToken}`
+		const maeuschenChatId = `${process.env.maeuschenChat}`
+		const igelChatId = `${process.env.igelChat}`
 
-      const bot = new TelegramBot(telegramToken);
+		const bot = new TelegramBot(telegramToken);
 
-      let textMessage = steps.trigger.event.body.text;
-      
-      let email = steps.trigger.event.headers.to.text;
+		let textMessage = steps.trigger.event.body.text;
 
-      let groupNameMatched, groupName;
+		const addresses = steps.trigger.event.headers.to.value;
+		const hasIgel = addresses.filter(({ address }) => address.includes("igel")).length > 0;
+		const hasMaueschen = addresses.filter(({ address }) => address.includes("maueschen")).length > 0;
 
-    
-        groupNameMatched = email.match(/\+.*\@/)[0];
-        groupName = groupNameMatched.substring(1, groupNameMatched.length - 1);
+		if (textMessage.trim().length !== 0) {
+			if (hasMaueschen)
+				await bot.sendMessage(maeuschenChatId, textMessage);
+			if (hasIgel)
+				await bot.sendMessage(igelChatId, textMessage);
+		}
 
-
-      if (textMessage.trim().length !== 0) {
-        switch(groupName) {
-            case "maueschen":
-                await bot.sendMessage(maeuschenChatId, textMessage);
-              break;
-            case "igel":
-                await bot.sendMessage(igelChatId, textMessage);
-              break;
-          }
-      }
-      
-      return steps.trigger.event.body
-    },
-  })
+		return steps.trigger.event.body
+	},
+})
