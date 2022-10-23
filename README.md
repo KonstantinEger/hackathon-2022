@@ -1,5 +1,12 @@
 # hackathon-2022
 
+## Pipedream Workflow
+1. Trigger - durch EMail
+2. Senden an Telegram Gruppen
+3. Checken, ob `+twitter` in Email enthalten; wenn nicht, stop
+4. Nachricht in Chunks aufteilen, wegen Twitter Character limit
+5. Senden der Tweets als Thread
+
 ## Notes for Whatsapp
 - Zwei Möglichkeiten:
 	- Direct Messaging: Nachrichten werden direkt an die Telefonnummern der Eltern verteilt
